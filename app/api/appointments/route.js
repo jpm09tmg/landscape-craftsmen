@@ -103,7 +103,7 @@ export async function POST(request) {
 
     return NextResponse.json({
       success: true,
-      message: 'Appointment booked successfully! We will contact you within 24 hours to confirm.',
+      message: 'Appointment booked successfully!',
       appointment: {
         id: appointment.id,
         service: appointment.service,
