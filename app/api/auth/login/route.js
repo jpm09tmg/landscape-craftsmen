@@ -1,36 +1,40 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/app/lib/prisma'
-import { comparePassword, generateToken } from '@/app/lib/auth'
+import { prisma } from '../../../lib/prisma'
+import { comparePassword, generateToken } from '../../../lib/auth'
 
 export async function POST(request) {
   try {
     const { username, password } = await request.json()
 
-    // Finds admin
+    if (!username || !password) {
+      return NextResponse.json(
+        { error: 'Username and password are required' },
+        { status: 400 }
+      )
+    }
+
     const admin = await prisma.admin.findUnique({
       where: { username }
     })
 
     if (!admin) {
       return NextResponse.json(
-        { success: false, message: 'Invalid credentials' },
+        { error: 'Invalid credentials' },
         { status: 401 }
       )
     }
 
-    // Checks password
     const isPasswordValid = await comparePassword(password, admin.password)
     if (!isPasswordValid) {
       return NextResponse.json(
-        { success: false, message: 'Invalid credentials' },
+        { error: 'Invalid credentials' },
         { status: 401 }
       )
     }
 
-    // Generates token
     const token = generateToken({ adminId: admin.id })
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       message: 'Login successful',
       token,
@@ -40,10 +44,20 @@ export async function POST(request) {
         email: admin.email
       }
     })
+
+    response.cookies.set('auth-token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 24 * 60 * 60
+    })
+
+    return response
+
   } catch (error) {
     console.error('Login error:', error)
     return NextResponse.json(
-      { success: false, message: 'Login error', error: error.message },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }
