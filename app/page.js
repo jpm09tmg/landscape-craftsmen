@@ -1,47 +1,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import Header from './components/Header'
+import Footer from './components/Footer'
 
 export default function Home() {
   return (
     <div className="w-full min-h-screen bg-white">
-      {/* Header */}
-      <div className="w-full h-16 bg-[#74A744]">
-        <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
-          <div className="flex items-center">
-            <div className="w-28 h-12 bg-[#E4EDCB] rounded-lg overflow-hidden shadow-md">
-              <Image 
-                src="/headlogo.png" 
-                alt="YYC Landscape Craftsmen"
-                width={144}
-                height={69}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-
-          {/* Navigation */}
-          <nav className="flex space-x-0">
-            <Link href="/" className="px-6 py-4 text-sm text-black bg-white/10 border-b-2 border-black">
-              Home
-            </Link>
-            <Link href="/services" className="px-6 py-4 text-sm text-white hover:bg-white/10">
-              Services
-            </Link>
-            <Link href="/gallery" className="px-6 py-4 text-sm text-white hover:bg-white/10">
-              Gallery
-            </Link>
-            <Link href="/quote" className="px-6 py-4 text-sm text-white hover:bg-white/10">
-              Quote
-            </Link>
-            <Link href="/contact" className="px-6 py-4 text-sm text-white hover:bg-white/10">
-              Contact
-            </Link>
-            <Link href="/admin/login" className="px-6 py-4 text-sm text-white hover:bg-white/10">
-              Admin
-            </Link>
-          </nav>
-        </div>
-      </div>
+      <Header currentPage="home" />
 
       <div className="w-full h-[600px] relative overflow-hidden">
         <div 
@@ -254,87 +219,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="w-full bg-[#74A744] py-16">
-        <div className="max-w-7xl mx-auto px-20">
-          <div className="grid grid-cols-4 gap-12 mb-8">
-            <div className="flex flex-col items-center text-center">
-              <div className="w-28 h-12 bg-[#E4EDCB] rounded-lg overflow-hidden shadow-md mb-4">
-                <Image 
-                  src="/headlogo.png" 
-                  alt="YYC Landscape Craftsmen"
-                  width={144}
-                  height={69}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="text-white text-lg font-semibold mb-2">YYC Landscape</h3>
-              <p className="text-white/90 text-sm leading-relaxed">
-                Professional outdoor construction services for your home and business.
-              </p>
-            </div>
-
-            <div className="flex flex-col items-center text-center">
-              <h3 className="text-white text-lg font-semibold mb-4">Our Services</h3>
-              <ul className="space-y-3">
-                <li><span className="text-white/90 text-sm hover:text-white transition-colors cursor-pointer">Deck Construction</span></li>
-                <li><span className="text-white/90 text-sm hover:text-white transition-colors cursor-pointer">Pergola Installation</span></li>
-                <li><span className="text-white/90 text-sm hover:text-white transition-colors cursor-pointer">Fence Installation</span></li>
-                <li><span className="text-white/90 text-sm hover:text-white transition-colors cursor-pointer">Custom Designs</span></li>
-              </ul>
-            </div>
-
-            <div className="flex flex-col items-center text-center">
-              <h3 className="text-white text-lg font-semibold mb-4">Contact Info</h3>
-              <ul className="space-y-3">
-                <li className="flex flex-col items-center">
-                  <span className="text-white/70 text-xs uppercase tracking-wide mb-1">Phone</span>
-                  <span className="text-white/90 text-sm">(587) 438-6672</span>
-                </li>
-                <li className="flex flex-col items-center">
-                  <span className="text-white/70 text-xs uppercase tracking-wide mb-1">Email</span>
-                  <span className="text-white/90 text-sm">info@yyclandscape.com</span>
-                </li>
-                <li className="flex flex-col items-center">
-                  <span className="text-white/70 text-xs uppercase tracking-wide mb-1">Location</span>
-                  <span className="text-white/90 text-sm">Calgary, Alberta</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="flex flex-col items-center text-center">
-              <h3 className="text-white text-lg font-semibold mb-4">Follow Us</h3>
-              <div className="flex space-x-4 mb-4">
-                <div className="w-8 h-8 bg-white/20 hover:bg-white/30 rounded-lg flex items-center justify-center cursor-pointer transition-colors">
-                  <span className="text-white text-sm">f</span>
-                </div>
-                <div className="w-8 h-8 bg-white/20 hover:bg-white/30 rounded-lg flex items-center justify-center cursor-pointer transition-colors">
-                  <span className="text-white text-sm">ig</span>
-                </div>
-                <div className="w-8 h-8 bg-white/20 hover:bg-white/30 rounded-lg flex items-center justify-center cursor-pointer transition-colors">
-                  <span className="text-white text-sm">li</span>
-                </div>
-              </div>
-              <p className="text-white/90 text-sm">
-                Stay updated with our latest projects
-              </p>
-            </div>
-          </div>
-
-          <div className="border-t border-white/30 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <p className="text-white/90 text-sm">
-                © 2025 YYC Landscape Craftsmen. All rights reserved.
-              </p>
-              <div className="flex space-x-6">
-                <span className="text-white/70 text-sm hover:text-white cursor-pointer transition-colors">Privacy Policy</span>
-                <span className="text-white/70 text-sm hover:text-white cursor-pointer transition-colors">Terms of Service</span>
-                <span className="text-white/70 text-sm hover:text-white cursor-pointer transition-colors">Site Map</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Footer />
     </div>
     );
 }
