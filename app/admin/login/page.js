@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { User, Lock, Eye, EyeOff } from 'lucide-react'
 
 export default function AdminLoginPage() {
@@ -48,7 +49,9 @@ export default function AdminLoginPage() {
 			{/* Header bar */}
 			<div className="w-full h-[90px] bg-[#74A744] flex items-center justify-center">
 				<div className="w-[160px] h-[60px] flex items-center justify-center">
-					<Image src="/headlogo.png" alt="Landscape Craftsmen" width={160} height={60} className="object-contain" />
+					<Link href="/" className="block hover:opacity-80 transition-opacity">
+						<Image src="/headlogo.png" alt="Landscape Craftsmen" width={160} height={60} className="object-contain" />
+					</Link>
 				</div>
 			</div>
 
@@ -123,5 +126,3 @@ export default function AdminLoginPage() {
 		</div>
 	)
 }
-
-
