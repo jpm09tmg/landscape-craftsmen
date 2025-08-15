@@ -31,7 +31,7 @@ export default function Sidebar() {
   const [tasksExpanded, setTasksExpanded] = useState(isTasksActive)
 
   return (
-    <aside className="w-[301px] bg-[#5F9136] h-[calc(100vh-4rem)]">
+    <aside className="w-[301px] bg-[#5F9136] min-h-screen sticky top-0">
       <nav className="p-3 space-y-2">
         {/* Dashboard */}
         <Link 
