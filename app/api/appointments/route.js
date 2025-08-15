@@ -194,3 +194,95 @@ export async function GET() {
     )
   }
 }
+
+// PATCH method to update appointment status
+export async function PATCH(request) {
+  try {
+    const data = await request.json()
+    const { appointmentId, status } = data
+
+    if (!appointmentId || !status) {
+      return NextResponse.json(
+        { 
+          success: false, 
+          message: 'Appointment ID and status are required' 
+        },
+        { status: 400 }
+      )
+    }
+
+    // Validate status
+    const validStatuses = ['Pending', 'Confirmed', 'Cancelled', 'Completed']
+    if (!validStatuses.includes(status)) {
+      return NextResponse.json(
+        { 
+          success: false, 
+          message: 'Invalid status. Must be one of: ' + validStatuses.join(', ')
+        },
+        { status: 400 }
+      )
+    }
+
+    // Update appointment status
+    const updatedAppointment = await prisma.appointment.update({
+      where: { id: appointmentId },
+      data: { status },
+      include: {
+        user: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+            phone: true,
+            address: true
+          }
+        },
+        service: {
+          select: {
+            id: true,
+            name: true,
+            description: true
+          }
+        }
+      }
+    })
+
+    return NextResponse.json({
+      success: true,
+      message: 'Appointment status updated successfully',
+      appointment: {
+        id: updatedAppointment.id,
+        service: updatedAppointment.service,
+        appointmentDate: updatedAppointment.appointmentDate,
+        appointmentTime: updatedAppointment.appointmentTime,
+        status: updatedAppointment.status,
+        notes: updatedAppointment.notes,
+        createdAt: updatedAppointment.createdAt,
+        customer: updatedAppointment.user
+      }
+    })
+
+  } catch (error) {
+    console.error('Update appointment error:', error)
+    
+    if (error.code === 'P2025') {
+      return NextResponse.json(
+        { 
+          success: false, 
+          message: 'Appointment not found' 
+        },
+        { status: 404 }
+      )
+    }
+
+    return NextResponse.json(
+      { 
+        success: false, 
+        message: 'Error updating appointment status',
+        error: error.message 
+      },
+      { status: 500 }
+    )
+  }
+}
