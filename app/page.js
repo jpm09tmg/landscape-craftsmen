@@ -36,7 +36,7 @@ export default function Home() {
             <Link href="/contact" className="px-6 py-4 text-sm text-white hover:bg-white/10">
               Contact
             </Link>
-            <Link href="/admin" className="px-6 py-4 text-sm text-white hover:bg-white/10">
+            <Link href="/admin/login" className="px-6 py-4 text-sm text-white hover:bg-white/10">
               Admin
             </Link>
           </nav>
